@@ -1,25 +1,21 @@
 import Express from "express"
 import Months from "./months.js"
 
+import path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 const app = Express()
 const port = 3000
 
 //ROUTING - START
 
 app.get("/", (req, res)=>{
-  console.log("Home page")
-
-  let output = ""
-  Months.forEach(month=> {
-    output += `<li>${month}</li>`
-  })
-  res.send(output)
+  
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 })
 
-app.get("/about", (req, res)=>{
-  console.log("About page")
-  res.send("Welcome to the about site!")
-})
 //ROUTING - END
 
 app.listen(port,()=>{console.log("The Web Server is now listening on port: "+port)})
